@@ -32,7 +32,7 @@ export class ServiceMetadata {
     this.options = options;
   }
 
-  document(format: Format = 'xml') {
+  document(format: Format = 'xml'): any {
     switch (format) {
       case 'json':
       case 'application/json':
