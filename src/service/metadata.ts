@@ -4,7 +4,7 @@ import { defineEntities } from './defineEntities';
 import { Request, Response, RequestHandler, json } from 'express';
 import { jsonStringify } from './JsonCreator';
 
-type Format = 'xml' | 'json' | 'application/json' | 'application/xml'
+export type Format = 'xml' | 'json' | 'application/json' | 'application/xml'
 
 export class ServiceMetadata {
 
