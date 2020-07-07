@@ -1,5 +1,4 @@
 import { Edm } from '../edm';
-import * as extend from 'extend';
 
 const containsField = (obj, field, cb) => {
   if (obj && field in obj && typeof obj[field] !== 'undefined') {
@@ -14,7 +13,7 @@ export class JsonDocument {
   constructor(options: any, edmx: Edm.Edmx) {
     options = options || {};
 
-    this.options = extend({}, options);
+    this.options = Object.assign({}, options);
 
     this.metadata = edmx;
   }
