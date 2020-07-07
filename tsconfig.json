@@ -5,6 +5,7 @@
         "allowJs": true,
         "module": "commonjs",
         "target": "es5",
+        "resolveJsonModule": true,
         "emitDecoratorMetadata": true,
         "declaration": true,
         "watch": false,

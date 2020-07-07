@@ -1,12 +1,7 @@
 import { Edm } from '../edm';
 
-const containsField = (obj, field, cb) => {
-  if (obj && field in obj && typeof obj[field] !== 'undefined') {
-    cb(obj[field]);
-  }
-};
-
 export class JsonDocument {
+
   public metadata: Edm.Edmx
   private options: any
 
@@ -58,4 +53,5 @@ export class JsonDocument {
       });
     });
   }
+
 }

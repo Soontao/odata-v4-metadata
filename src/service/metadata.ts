@@ -42,7 +42,7 @@ export class ServiceMetadata {
     }
   }
 
-  process(edmx: Edm.Edmx, options?: Object): string {
+  process(edmx: Edm.Edmx, options?: Object): any {
     const xmlMetadata = new XmlMetadata(options, edmx);
     return xmlMetadata.processMetadata();
   }

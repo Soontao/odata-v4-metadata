@@ -2,13 +2,14 @@
 import { Edm, ServiceMetadata, Format } from '../index';
 import { JsonDocument } from './JsonDocument';
 import { Request, Response, RequestHandler } from 'express';
+
 export class ServiceDocument extends ServiceMetadata {
 
   constructor(edmx: Edm.Edmx, options?: Object) {
     super(edmx, options);
   }
 
-  document(format?: Format) {
+  document(format?: Format = 'json') {
     switch (format) {
       case 'xml':
         throw new Error('Not implemented');
