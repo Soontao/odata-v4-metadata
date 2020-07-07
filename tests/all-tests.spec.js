@@ -1,4 +1,4 @@
-import { Edm } from "../src/edm";
+import { Edm } from "../src";
 
 describe("Edm.EntityProperty", () => {
 
