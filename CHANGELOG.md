@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.9](https://github.com/Soontao/odata-v4-metadata/compare/v0.1.8...v0.1.9) (2020-07-07)
+
+
+### Features
+
+* document ([8320911](https://github.com/Soontao/odata-v4-metadata/commit/8320911d4c082ae0acf775cb0bdb403a327e9889))
+
 ### [0.1.8](https://github.com/Soontao/odata-v4-metadata/compare/v0.1.7...v0.1.8) (2020-07-07)
 
 
