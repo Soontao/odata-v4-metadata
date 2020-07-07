@@ -1,12 +1,10 @@
-/// <reference path="../lib/Edm.d.ts" />
-
-var Edm = require('../lib/edm.js').Edm
-var expect = require('chai').expect
+import { Edm } from "../src/edm";
 
 describe("Edm.EntityProperty", () => {
+
     it("should support no init data", () => {
         var ep = new Edm.Property();
-        expect(ep).to.be.instanceof(Edm.Property)
+        expect(ep).toBeInstanceOf(Edm.Property)
     });
 
     it("should support initialize name from init data", () => {
@@ -17,8 +15,8 @@ describe("Edm.EntityProperty", () => {
             ]
         }
         var ed = new Edm.EntityType(p, {})
-        expect(ed.properties[0]).to.be.instanceof(Edm.Property)
-        expect(ed.properties[0].name).to.equal("p1")
+        expect(ed.properties[0]).toBeInstanceOf(Edm.Property)
+        expect(ed.properties[0].name).toEqual("p1")
     });
 })
 
@@ -33,9 +31,9 @@ describe("Edm.NavigationProperty", () => {
             ]
         }
         var ed = new Edm.NavigationProperty(p, {})
-        expect(ed.name).to.equal("h")
-        expect(ed.referentialConstraints[0]).to.be.instanceof(Edm.ReferentialConstraint)
-        expect(ed.referentialConstraints[0].property).to.equal("p1")
+        expect(ed.name).toEqual("h")
+        expect(ed.referentialConstraints[0]).toBeInstanceOf(Edm.ReferentialConstraint)
+        expect(ed.referentialConstraints[0].property).toEqual("p1")
     });
 })
 
@@ -72,12 +70,12 @@ describe("Edm.EntityType", () => {
             ]
         }
         var ed = new Edm.EntityType(p, {})
-        expect(ed.name).to.equal("h")
-        expect(ed.navigationProperties[0]).to.be.instanceof(Edm.NavigationProperty)
-        expect(ed.properties[0]).to.be.instanceof(Edm.Property)
-        expect(ed.navigationProperties[0].referentialConstraints[0].property).to.equal("np1")
-        expect(ed.key).to.be.instanceof(Edm.Key)
-        expect(ed.key.propertyRefs[0]).to.be.instanceof(Edm.PropertyRef)
+        expect(ed.name).toEqual("h")
+        expect(ed.navigationProperties[0]).toBeInstanceOf(Edm.NavigationProperty)
+        expect(ed.properties[0]).toBeInstanceOf(Edm.Property)
+        expect(ed.navigationProperties[0].referentialConstraints[0].property).toEqual("np1")
+        expect(ed.key).toBeInstanceOf(Edm.Key)
+        expect(ed.key.propertyRefs[0]).toBeInstanceOf(Edm.PropertyRef)
 
     });
 })
@@ -92,10 +90,10 @@ describe("Edm.Schema", () => {
     it("should support initialize name from init data", () => {
         var s = new Edm.Schema(entitySchema)
         //s.
-        expect(s.entityTypes).to.have.length(26)
-        expect(s.entityTypes[0]).to.be.instanceof(Edm.EntityType)
-        expect(s.entityTypes[0].key.propertyRefs[0]).to.be.instanceof(Edm.PropertyRef)
-        expect(s.entityTypes[0].key.propertyRefs[0].name).to.equal("CategoryID")
+        expect(s.entityTypes).toHaveLength(26)
+        expect(s.entityTypes[0]).toBeInstanceOf(Edm.EntityType)
+        expect(s.entityTypes[0].key.propertyRefs[0]).toBeInstanceOf(Edm.PropertyRef)
+        expect(s.entityTypes[0].key.propertyRefs[0].name).toEqual("CategoryID")
     })
 })
 
@@ -105,10 +103,10 @@ describe("Edm.DataService", () => {
         var d = new Edm.DataServices(dataServices)
         var s = d.schemas[0]
         //s.
-        expect(s.entityTypes).to.have.length(26)
-        expect(s.entityTypes[0]).to.be.instanceof(Edm.EntityType)
-        expect(s.entityTypes[0].key.propertyRefs[0]).to.be.instanceof(Edm.PropertyRef)
-        expect(s.entityTypes[0].key.propertyRefs[0].name).to.equal("CategoryID")
+        expect(s.entityTypes).toHaveLength(26)
+        expect(s.entityTypes[0]).toBeInstanceOf(Edm.EntityType)
+        expect(s.entityTypes[0].key.propertyRefs[0]).toBeInstanceOf(Edm.PropertyRef)
+        expect(s.entityTypes[0].key.propertyRefs[0].name).toEqual("CategoryID")
     })
 })
 
@@ -117,10 +115,10 @@ describe("Edm.Edmx", () => {
         var d = new Edm.Edmx(nwindSchema)
         var s = d.dataServices.schemas[0]
         //s.
-        expect(s.entityTypes).to.have.length(26)
-        expect(s.entityTypes[0]).to.be.instanceof(Edm.EntityType)
-        expect(s.entityTypes[0].key.propertyRefs[0]).to.be.instanceof(Edm.PropertyRef)
-        expect(s.entityTypes[0].key.propertyRefs[0].name).to.equal("CategoryID")
+        expect(s.entityTypes).toHaveLength(26)
+        expect(s.entityTypes[0]).toBeInstanceOf(Edm.EntityType)
+        expect(s.entityTypes[0].key.propertyRefs[0]).toBeInstanceOf(Edm.PropertyRef)
+        expect(s.entityTypes[0].key.propertyRefs[0].name).toEqual("CategoryID")
     })
 })
 
@@ -128,12 +126,12 @@ describe("Edm.Reference", () => {
     it("should support initialize name from init data (edmx)", () => {
         var d = new Edm.Edmx(nwindSchema)
 
-        expect(d.references).to.have.length(2)
-        expect(d.references[0]).to.be.instanceof(Edm.Reference)
-        expect(d.references[0].includes).to.have.length(1)
-        expect(d.references[0].includes[0]).to.be.instanceof(Edm.ReferenceInclude)
-        expect(d.references[0].includes[0].namespace).to.equal("Org.OData.Core.V1")
-        expect(d.references[0].includes[0].alias).to.equal("Core")
+        expect(d.references).toHaveLength(2)
+        expect(d.references[0]).toBeInstanceOf(Edm.Reference)
+        expect(d.references[0].includes).toHaveLength(1)
+        expect(d.references[0].includes[0]).toBeInstanceOf(Edm.ReferenceInclude)
+        expect(d.references[0].includes[0].namespace).toEqual("Org.OData.Core.V1")
+        expect(d.references[0].includes[0].alias).toEqual("Core")
     })
 })
 
@@ -145,10 +143,10 @@ describe("Edm.Action", () => {
         var schema = new Edm.Schema(json)
         var action = schema.actions[0]
 
-        expect(action).to.be.instanceof(Edm.Action)
-        expect(action.parameters).to.have.length(2)
-        expect(action.parameters[0]).to.be.instanceof(Edm.Parameter)
-        expect(action.parameters[0].name).to.be.equal("bindingParameter")
+        expect(action).toBeInstanceOf(Edm.Action)
+        expect(action.parameters).toHaveLength(2)
+        expect(action.parameters[0]).toBeInstanceOf(Edm.Parameter)
+        expect(action.parameters[0].name).toEqual("bindingParameter")
     })
 })
 
@@ -159,10 +157,10 @@ describe("Edm.Action", () => {
         var func = schema.functions[0]
         //console.log(schema.functions)
 
-        expect(func).to.be.instanceof(Edm.Function)
-        expect(func.parameters).to.have.length(2)
-        expect(func.parameters[0]).to.be.instanceof(Edm.Parameter)
-        expect(func.parameters[0].name).to.be.equal("bindingParameter")
+        expect(func).toBeInstanceOf(Edm.Function)
+        expect(func.parameters).toHaveLength(2)
+        expect(func.parameters[0]).toBeInstanceOf(Edm.Parameter)
+        expect(func.parameters[0].name).toEqual("bindingParameter")
     })
 })
 
@@ -171,11 +169,11 @@ describe("Edm.ComplexType", () => {
         var json = o4schema.dataServices.schema[0]
         var schema = new Edm.Schema(json)
 
-        expect(schema.complexTypes).to.have.length(1)
-        expect(schema.complexTypes[0]).to.be.instanceof(Edm.ComplexType)
-        expect(schema.complexTypes[0].properties[0]).to.be.instanceof(Edm.Property)
-        expect(schema.complexTypes[0].properties[0].name).to.be.equal("Address")
-        expect(schema.complexTypes[0].properties[0].type).to.equal(Edm.String.toString())
+        expect(schema.complexTypes).toHaveLength(1)
+        expect(schema.complexTypes[0]).toBeInstanceOf(Edm.ComplexType)
+        expect(schema.complexTypes[0].properties[0]).toBeInstanceOf(Edm.Property)
+        expect(schema.complexTypes[0].properties[0].name).toEqual("Address")
+        expect(schema.complexTypes[0].properties[0].type).toEqual(Edm.String.toString())
     })
 })
 
@@ -184,12 +182,12 @@ describe("Edm.EnumType", () => {
         var json = o4schema.dataServices.schema[0]
         var schema = new Edm.Schema(json)
 
-        expect(schema.enumTypes).to.have.length(1)
-        expect(schema.enumTypes[0]).to.be.instanceof(Edm.EnumType)
-        expect(schema.enumTypes[0].members).to.have.length(3)
-        expect(schema.enumTypes[0].members[0]).to.instanceof(Edm.Member)
-        expect(schema.enumTypes[0].members[0].name).to.equal("Admin")
-        expect(schema.enumTypes[0].members[0].value).to.equal('0')
+        expect(schema.enumTypes).toHaveLength(1)
+        expect(schema.enumTypes[0]).toBeInstanceOf(Edm.EnumType)
+        expect(schema.enumTypes[0].members).toHaveLength(3)
+        expect(schema.enumTypes[0].members[0]).toBeInstanceOf(Edm.Member)
+        expect(schema.enumTypes[0].members[0].name).toEqual("Admin")
+        expect(schema.enumTypes[0].members[0].value).toEqual('0')
     })
 })
 
@@ -200,64 +198,64 @@ describe("Edm.Annotations", () => {
         var json = o4schema.dataServices.schema[0]
         var schema = new Edm.Schema(json)
 
-        expect(schema.annotations).to.have.length(attributeCount)
-        expect(schema.annotations[0]).to.be.instanceof(Edm.Annotations)
-        expect(schema.annotations[0].annotations).to.have.length(1)
-        expect(schema.annotations[0].annotations[0]).to.instanceof(Edm.BoolAnnotation)
-        expect(schema.annotations[0].annotations[0].term).to.equal("Org.OData.Core.V1.Computed")
-        expect(schema.annotations[0].annotations[0].bool).to.equal("true")
+        expect(schema.annotations).toHaveLength(attributeCount)
+        expect(schema.annotations[0]).toBeInstanceOf(Edm.Annotations)
+        expect(schema.annotations[0].annotations).toHaveLength(1)
+        expect(schema.annotations[0].annotations[0]).toBeInstanceOf(Edm.BoolAnnotation)
+        expect(schema.annotations[0].annotations[0].term).toEqual("Org.OData.Core.V1.Computed")
+        expect(schema.annotations[0].annotations[0].bool).toEqual("true")
     })
 
     it("Edm.BoolAnnotation child", () => {
         var json = o4schema.dataServices.schema[0]
         var schema = new Edm.Schema(json)
 
-        expect(schema.annotations).to.have.length(attributeCount)
-        expect(schema.annotations[1]).to.be.instanceof(Edm.Annotations)
-        expect(schema.annotations[1].annotations).to.have.length(1)
-        expect(schema.annotations[1].annotations[0]).to.instanceof(Edm.BoolAnnotation)
-        expect(schema.annotations[1].annotations[0].term).to.equal("Org.OData.Core.V1.Computed")
-        expect(schema.annotations[1].annotations[0].bool).to.equal("true")
+        expect(schema.annotations).toHaveLength(attributeCount)
+        expect(schema.annotations[1]).toBeInstanceOf(Edm.Annotations)
+        expect(schema.annotations[1].annotations).toHaveLength(1)
+        expect(schema.annotations[1].annotations[0]).toBeInstanceOf(Edm.BoolAnnotation)
+        expect(schema.annotations[1].annotations[0].term).toEqual("Org.OData.Core.V1.Computed")
+        expect(schema.annotations[1].annotations[0].bool).toEqual("true")
     })
     it("Edm.StringAnnotation attribute", () => {
         var json = o4schema.dataServices.schema[0]
         var schema = new Edm.Schema(json)
 
-        expect(schema.annotations).to.have.length(attributeCount)
-        expect(schema.annotations[2]).to.be.instanceof(Edm.Annotations)
-        expect(schema.annotations[2].annotations).to.have.length(1)
-        expect(schema.annotations[2].annotations[0]).to.instanceof(Edm.StringAnnotation)
-        expect(schema.annotations[2].annotations[0].term).to.equal("UI.DisplayName")
-        expect(schema.annotations[2].annotations[0].string).to.equal("Lead")
+        expect(schema.annotations).toHaveLength(attributeCount)
+        expect(schema.annotations[2]).toBeInstanceOf(Edm.Annotations)
+        expect(schema.annotations[2].annotations).toHaveLength(1)
+        expect(schema.annotations[2].annotations[0]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(schema.annotations[2].annotations[0].term).toEqual("UI.DisplayName")
+        expect(schema.annotations[2].annotations[0].string).toEqual("Lead")
     })
 
     it("Edm.StringAnnotation child", () => {
         var json = o4schema.dataServices.schema[0]
         var schema = new Edm.Schema(json)
 
-        expect(schema.annotations).to.have.length(attributeCount)
-        expect(schema.annotations[3]).to.be.instanceof(Edm.Annotations)
-        expect(schema.annotations[3].annotations).to.have.length(1)
-        expect(schema.annotations[3].annotations[0]).to.instanceof(Edm.StringAnnotation)
-        expect(schema.annotations[3].annotations[0].term).to.equal("UI.DisplayName")
-        expect(schema.annotations[3].annotations[0].string).to.equal("Lead")
+        expect(schema.annotations).toHaveLength(attributeCount)
+        expect(schema.annotations[3]).toBeInstanceOf(Edm.Annotations)
+        expect(schema.annotations[3].annotations).toHaveLength(1)
+        expect(schema.annotations[3].annotations[0]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(schema.annotations[3].annotations[0].term).toEqual("UI.DisplayName")
+        expect(schema.annotations[3].annotations[0].string).toEqual("Lead")
     })
 
     it("Multiple annotations", () => {
         var json = o4schema.dataServices.schema[0]
         var schema = new Edm.Schema(json)
 
-        expect(schema.annotations).to.have.length(attributeCount)
-        expect(schema.annotations[4]).to.be.instanceof(Edm.Annotations)
-        expect(schema.annotations[4].annotations).to.have.length(2)
+        expect(schema.annotations).toHaveLength(attributeCount)
+        expect(schema.annotations[4]).toBeInstanceOf(Edm.Annotations)
+        expect(schema.annotations[4].annotations).toHaveLength(2)
 
-        expect(schema.annotations[4].annotations[0]).to.instanceof(Edm.BoolAnnotation)
-        expect(schema.annotations[4].annotations[0].term).to.equal("Org.OData.Core.V1.Computed")
-        expect(schema.annotations[4].annotations[0].bool).to.equal("true")
+        expect(schema.annotations[4].annotations[0]).toBeInstanceOf(Edm.BoolAnnotation)
+        expect(schema.annotations[4].annotations[0].term).toEqual("Org.OData.Core.V1.Computed")
+        expect(schema.annotations[4].annotations[0].bool).toEqual("true")
 
-        expect(schema.annotations[4].annotations[1]).to.instanceof(Edm.StringAnnotation)
-        expect(schema.annotations[4].annotations[1].term).to.equal("UI.DisplayName")
-        expect(schema.annotations[4].annotations[1].string).to.equal("Identifier")
+        expect(schema.annotations[4].annotations[1]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(schema.annotations[4].annotations[1].term).toEqual("UI.DisplayName")
+        expect(schema.annotations[4].annotations[1].string).toEqual("Identifier")
     })
 
     it("Edm.Annotation on property", () => {
@@ -277,10 +275,10 @@ describe("Edm.Annotations", () => {
             ]
         }
         var ed = new Edm.EntityType(p, {})
-        expect(ed.properties[2]).to.be.instanceof(Edm.Property)
-        expect(ed.properties[2].name).to.equal("p3")
-        expect(ed.properties[2].annotations[0]).to.be.instanceof(Edm.Annotation)
-        expect(ed.properties[2].annotations[0].term).to.equal("UI.DisplayName")
+        expect(ed.properties[2]).toBeInstanceOf(Edm.Property)
+        expect(ed.properties[2].name).toEqual("p3")
+        expect(ed.properties[2].annotations[0]).toBeInstanceOf(Edm.Annotation)
+        expect(ed.properties[2].annotations[0].term).toEqual("UI.DisplayName")
     })
 
     it("Edm.Annotation on navigationProperty", () => {
@@ -300,10 +298,10 @@ describe("Edm.Annotations", () => {
             ]
         }
         var ed = new Edm.EntityType(p, {})
-        expect(ed.navigationProperties[2]).to.be.instanceof(Edm.NavigationProperty)
-        expect(ed.navigationProperties[2].name).to.equal("p3")
-        expect(ed.navigationProperties[2].annotations[0]).to.be.instanceof(Edm.Annotation)
-        expect(ed.navigationProperties[2].annotations[0].term).to.equal("UI.DisplayName")
+        expect(ed.navigationProperties[2]).toBeInstanceOf(Edm.NavigationProperty)
+        expect(ed.navigationProperties[2].name).toEqual("p3")
+        expect(ed.navigationProperties[2].annotations[0]).toBeInstanceOf(Edm.Annotation)
+        expect(ed.navigationProperties[2].annotations[0].term).toEqual("UI.DisplayName")
     })
 
     it("Edm.Annotation on type", () => {
@@ -322,11 +320,11 @@ describe("Edm.Annotations", () => {
             ]
         }
         var ed = new Edm.EntityType(p, {})
-        expect(ed.properties[2]).to.be.instanceof(Edm.Property)
-        expect(ed.properties[2].name).to.equal("p3")
-        expect(ed.annotations[0]).to.be.instanceof(Edm.StringAnnotation)
-        expect(ed.annotations[0].term).to.equal("UI.DisplayName")
-        expect(ed.annotations[0].string).to.equal("hh")
+        expect(ed.properties[2]).toBeInstanceOf(Edm.Property)
+        expect(ed.properties[2].name).toEqual("p3")
+        expect(ed.annotations[0]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(ed.annotations[0].term).toEqual("UI.DisplayName")
+        expect(ed.annotations[0].string).toEqual("hh")
     })
 
     it("Edm.Annotation on complex type", () => {
@@ -345,11 +343,11 @@ describe("Edm.Annotations", () => {
             ]
         }
         var ed = new Edm.ComplexType(p, {})
-        expect(ed.properties[2]).to.be.instanceof(Edm.Property)
-        expect(ed.properties[2].name).to.equal("p3")
-        expect(ed.annotations[0]).to.be.instanceof(Edm.StringAnnotation)
-        expect(ed.annotations[0].term).to.equal("UI.DisplayName")
-        expect(ed.annotations[0].string).to.equal("hh")
+        expect(ed.properties[2]).toBeInstanceOf(Edm.Property)
+        expect(ed.properties[2].name).toEqual("p3")
+        expect(ed.annotations[0]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(ed.annotations[0].term).toEqual("UI.DisplayName")
+        expect(ed.annotations[0].string).toEqual("hh")
     })
 
     it("Edm.Annotation on type for property", () => {
@@ -369,12 +367,12 @@ describe("Edm.Annotations", () => {
             ]
         }
         var ed = new Edm.EntityType(p, {})
-        expect(ed.properties[2]).to.be.instanceof(Edm.Property)
-        expect(ed.properties[2].name).to.equal("p3")
-        expect(ed.annotations[0]).to.be.instanceof(Edm.StringAnnotation)
-        expect(ed.annotations[0].term).to.equal("UI.DisplayName")
-        expect(ed.annotations[0].string).to.equal("hh")
-        expect(ed.annotations[0].path).to.equal("p3")
+        expect(ed.properties[2]).toBeInstanceOf(Edm.Property)
+        expect(ed.properties[2].name).toEqual("p3")
+        expect(ed.annotations[0]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(ed.annotations[0].term).toEqual("UI.DisplayName")
+        expect(ed.annotations[0].string).toEqual("hh")
+        expect(ed.annotations[0].path).toEqual("p3")
     })
 
     it("Edm.Annotation on action parameter", () => {
@@ -396,11 +394,11 @@ describe("Edm.Annotations", () => {
             ]
         }
         var ed = new Edm.Action(p, {})
-        expect(ed.parameters[2]).to.be.instanceof(Edm.Parameter)
-        expect(ed.parameters[2].name).to.equal("p3")
-        expect(ed.parameters[2].annotations[0]).to.be.instanceof(Edm.StringAnnotation)
-        expect(ed.parameters[2].annotations[0].term).to.equal("UI.ControlHint")
-        expect(ed.parameters[2].annotations[0].string).to.equal("hh")
+        expect(ed.parameters[2]).toBeInstanceOf(Edm.Parameter)
+        expect(ed.parameters[2].name).toEqual("p3")
+        expect(ed.parameters[2].annotations[0]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(ed.parameters[2].annotations[0].term).toEqual("UI.ControlHint")
+        expect(ed.parameters[2].annotations[0].string).toEqual("hh")
     })
 
     it("Edm.Annotation on action returnType", () => {
@@ -422,11 +420,11 @@ describe("Edm.Annotations", () => {
             }
         }
         var ed = new Edm.Action(p, {})
-        expect(ed.returnType).to.be.instanceof(Edm.ReturnType)
-        expect(ed.returnType.type).to.equal("Edm.String")
-        expect(ed.returnType.annotations[0]).to.be.instanceof(Edm.StringAnnotation)
-        expect(ed.returnType.annotations[0].term).to.equal("UI.ControlHint")
-        expect(ed.returnType.annotations[0].string).to.equal("hh")
+        expect(ed.returnType).toBeInstanceOf(Edm.ReturnType)
+        expect(ed.returnType.type).toEqual("Edm.String")
+        expect(ed.returnType.annotations[0]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(ed.returnType.annotations[0].term).toEqual("UI.ControlHint")
+        expect(ed.returnType.annotations[0].string).toEqual("hh")
     })
 
     it("Edm.Annotation on action", () => {
@@ -446,12 +444,12 @@ describe("Edm.Annotations", () => {
             ]
         }
         var ed = new Edm.Action(p, {})
-        expect(ed.parameters[2]).to.be.instanceof(Edm.Parameter)
-        expect(ed.parameters[2].name).to.equal("p3")
-        expect(ed.annotations[0]).to.be.instanceof(Edm.StringAnnotation)
-        expect(ed.annotations[0].term).to.equal("UI.ControlHint")
-        expect(ed.annotations[0].string).to.equal("hh")
-        expect(ed.annotations[0].path).to.equal("p3")
+        expect(ed.parameters[2]).toBeInstanceOf(Edm.Parameter)
+        expect(ed.parameters[2].name).toEqual("p3")
+        expect(ed.annotations[0]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(ed.annotations[0].term).toEqual("UI.ControlHint")
+        expect(ed.annotations[0].string).toEqual("hh")
+        expect(ed.annotations[0].path).toEqual("p3")
     })
 
     it("Edm.Annotation on function parameter", () => {
@@ -473,11 +471,11 @@ describe("Edm.Annotations", () => {
             ]
         }
         var ed = new Edm.Function(p, {})
-        expect(ed.parameters[2]).to.be.instanceof(Edm.Parameter)
-        expect(ed.parameters[2].name).to.equal("p3")
-        expect(ed.parameters[2].annotations[0]).to.be.instanceof(Edm.StringAnnotation)
-        expect(ed.parameters[2].annotations[0].term).to.equal("UI.ControlHint")
-        expect(ed.parameters[2].annotations[0].string).to.equal("hh")
+        expect(ed.parameters[2]).toBeInstanceOf(Edm.Parameter)
+        expect(ed.parameters[2].name).toEqual("p3")
+        expect(ed.parameters[2].annotations[0]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(ed.parameters[2].annotations[0].term).toEqual("UI.ControlHint")
+        expect(ed.parameters[2].annotations[0].string).toEqual("hh")
     })
 
     it("Edm.Annotation on function returnType", () => {
@@ -499,11 +497,11 @@ describe("Edm.Annotations", () => {
             }
         }
         var ed = new Edm.Function(p, {})
-        expect(ed.returnType).to.be.instanceof(Edm.ReturnType)
-        expect(ed.returnType.type).to.equal("Edm.String")
-        expect(ed.returnType.annotations[0]).to.be.instanceof(Edm.StringAnnotation)
-        expect(ed.returnType.annotations[0].term).to.equal("UI.ControlHint")
-        expect(ed.returnType.annotations[0].string).to.equal("hh")
+        expect(ed.returnType).toBeInstanceOf(Edm.ReturnType)
+        expect(ed.returnType.type).toEqual("Edm.String")
+        expect(ed.returnType.annotations[0]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(ed.returnType.annotations[0].term).toEqual("UI.ControlHint")
+        expect(ed.returnType.annotations[0].string).toEqual("hh")
     })
 
     it("Edm.Annotation on function", () => {
@@ -523,12 +521,12 @@ describe("Edm.Annotations", () => {
             ]
         }
         var ed = new Edm.Function(p, {})
-        expect(ed.parameters[2]).to.be.instanceof(Edm.Parameter)
-        expect(ed.parameters[2].name).to.equal("p3")
-        expect(ed.annotations[0]).to.be.instanceof(Edm.StringAnnotation)
-        expect(ed.annotations[0].term).to.equal("UI.ControlHint")
-        expect(ed.annotations[0].string).to.equal("hh")
-        expect(ed.annotations[0].path).to.equal("p3")
+        expect(ed.parameters[2]).toBeInstanceOf(Edm.Parameter)
+        expect(ed.parameters[2].name).toEqual("p3")
+        expect(ed.annotations[0]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(ed.annotations[0].term).toEqual("UI.ControlHint")
+        expect(ed.annotations[0].string).toEqual("hh")
+        expect(ed.annotations[0].path).toEqual("p3")
     })
 
     it("Edm.Annotation on EnumType", () => {
@@ -557,12 +555,12 @@ describe("Edm.Annotations", () => {
             ]
         }
         var ed = new Edm.EnumType(p, {})
-        expect(ed.members[2]).to.be.instanceof(Edm.Member)
-        expect(ed.members[2].name).to.equal("Guest")
-        expect(ed.annotations[0]).to.be.instanceof(Edm.StringAnnotation)
-        expect(ed.annotations[0].term).to.equal("UI.ControlHint")
-        expect(ed.annotations[0].string).to.equal("hh")
-        expect(ed.annotations[0].path).to.equal("Guest")
+        expect(ed.members[2]).toBeInstanceOf(Edm.Member)
+        expect(ed.members[2].name).toEqual("Guest")
+        expect(ed.annotations[0]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(ed.annotations[0].term).toEqual("UI.ControlHint")
+        expect(ed.annotations[0].string).toEqual("hh")
+        expect(ed.annotations[0].path).toEqual("Guest")
     })
 
     it("Edm.Annotation on EnumType member", () => {
@@ -590,11 +588,11 @@ describe("Edm.Annotations", () => {
             ]
         }
         var ed = new Edm.EnumType(p, {})
-        expect(ed.members[2]).to.be.instanceof(Edm.Member)
-        expect(ed.members[2].name).to.equal("Guest")
-        expect(ed.members[2].annotations[0]).to.be.instanceof(Edm.StringAnnotation)
-        expect(ed.members[2].annotations[0].term).to.equal("UI.ControlHint")
-        expect(ed.members[2].annotations[0].string).to.equal("hh")
+        expect(ed.members[2]).toBeInstanceOf(Edm.Member)
+        expect(ed.members[2].name).toEqual("Guest")
+        expect(ed.members[2].annotations[0]).toBeInstanceOf(Edm.StringAnnotation)
+        expect(ed.members[2].annotations[0].term).toEqual("UI.ControlHint")
+        expect(ed.members[2].annotations[0].string).toEqual("hh")
     })
 
     it("Edm.Annotation on EntitySet", () => {
@@ -635,9 +633,9 @@ describe("Edm.Annotations", () => {
             ]
         }
         var ed = new Edm.EntitySet(p, {})
-        expect(ed.annotations[0]).to.be.instanceof(Edm.PropertyPathAnnotation)
-        expect(ed.annotations[0].term).to.equal("Org.OData.Core.V1.OptimisticConcurrency")
-        expect(ed.annotations[0].propertyPaths).to.deep.equal(["RowVersion"])
+        expect(ed.annotations[0]).toBeInstanceOf(Edm.PropertyPathAnnotation)
+        expect(ed.annotations[0].term).toEqual("Org.OData.Core.V1.OptimisticConcurrency")
+        expect(ed.annotations[0].propertyPaths).toStrictEqual(["RowVersion"])
     })
 
     it("Edm.StringAnnotation collection value", () => {
@@ -661,9 +659,9 @@ describe("Edm.Annotations", () => {
         }
         var ed = new Edm.StringAnnotation(p, {})
 
-        expect(ed).to.be.instanceof(Edm.StringAnnotation)
-        expect(ed.term).to.equal("org.example.seo.SeoTerms")
-        expect(ed.string).to.deep.equal(["Product", "Supplier", "Customer"])
+        expect(ed).toBeInstanceOf(Edm.StringAnnotation)
+        expect(ed.term).toEqual("org.example.seo.SeoTerms")
+        expect(ed.string).toStrictEqual(["Product", "Supplier", "Customer"])
 
     })
 
@@ -680,10 +678,12 @@ describe("Edm.Annotations", () => {
                 }
             ]
         }
+
         var ed = new Edm.Property(p, {})
-        expect(ed.annotations[0]).to.be.instanceof(Edm.NullAnnotation)
-        expect(ed.annotations[0].term).to.equal("org.example.display.DisplayName")
-        expect(ed.annotations[0].null).to.be.undefined
+        expect(ed.annotations[0]).toBeInstanceOf(Edm.NullAnnotation)
+        expect(ed.annotations[0].term).toEqual("org.example.display.DisplayName")
+        expect(ed.annotations[0].null).toBeUndefined()
+
     })
 })
 
