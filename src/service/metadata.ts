@@ -23,7 +23,8 @@ export class ServiceMetadata {
     return new this(edmx, options);
   }
 
-  private edmx: Edm.Edmx;
+  public edmx: Edm.Edmx;
+
   private options: any;
 
   constructor(edmx: Edm.Edmx, options?: Object) {
