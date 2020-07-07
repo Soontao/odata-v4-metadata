@@ -1,14 +1,19 @@
-#OData V4 metadata classes
+# OData(V4) Metadata
+
+[![npm (scoped)](https://img.shields.io/npm/v/@odata/metadata)](https://www.npmjs.com/package/@odata/metadata)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Soontao/odata-v4-metadata/Node%20CI?label=nodejs)](https://github.com/Soontao/odata-v4-metadata/actions?query=workflow%3A%Node+CI%22)
+[![Codecov](https://codecov.io/gh/Soontao/odata-v4-metadata/branch/master/graph/badge.svg)](https://codecov.io/gh/Soontao/odata-v4-metadata)
+
 
 This library implements the EDM and EMDX classes from the OData CSDL V4. 
 
-
 ## Features
+
 - Edm and Edmx classes
 - will provide Validation logic - based on specs (-on the way)
 - will Download and parse metadata from $metadata document or uri endpoint
 
-##Usage
+## Usage
 
 ```
 $ npm install odata-v4-metadata
@@ -17,37 +22,8 @@ $ npm install odata-v4-metadata
 then just
 
 ```javascript
-import {Edm} from 'odata-v4-metadata'
+import { Edm } from 'odata-v4-metadata'
 
 let entityType = new edm.EntityType({ name: "Orders", property: [{ name:"OrderID", type:edm.Integer}]
 entityType.properties.push(new Edm.Property(...))
 ```
-
-## Edm classes implemented
-
-### Edm.Action
-
-### Edm.ComplexType
-
-### Edm.EntityType
-
-### Edm.EnumType
-
-### Edm.Function
-
-### Edm.Member
-
-### Edm.NavigationProperty
-
-### Edm.Parameter
-
-### Edm.Property
-
-### Edm.PropertyRef
-
-### Edm.ReferentialConstraint
-
-### Edm.ReturnType
-
-### Edm.Schema
-
