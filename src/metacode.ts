@@ -1,9 +1,4 @@
-function isFunction(o: any) {
-  return 'function' === typeof o;
-}
-function isUndefined(o: any) {
-  return o === undefined;
-}
+import { isUndefined } from '@newdash/newdash/isUndefined';
 
 const definitionPropName = 'definition';
 

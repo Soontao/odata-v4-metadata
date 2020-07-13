@@ -37,8 +37,11 @@ export class ServiceMetadata {
       case 'json':
       case 'application/json':
         return jsonStringify(this.edmx);
-      default:
+      case 'xml':
+      case 'application/xml':
         return this.process(this.edmx, this.options);
+      default:
+        throw Error(`not support document type for ${format}`);
     }
   }
 

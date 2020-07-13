@@ -17,7 +17,7 @@
     "eslint": "^7.2.0",
     "jest": "^26.1.0",
     "rimraf": "^3.0.2",
-    "standard-version": "^8.0.0",
+    "standard-version": "^8.0.1",
     "ts-jest": "^26.1.1",
     "typescript": "^3.9.6"
   },
@@ -29,5 +29,16 @@
     "coverage": "npm test -- --coverage --no-cache",
     "prepublishOnly": "npm run build",
     "release": "standard-version --no-verify && git push --follow-tags origin master"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Soontao/odata-v4-metadata"
+  },
+  "dependencies": {
+    "@newdash/newdash": "^5.10.0"
+  },
+  "keywords": [
+    "odata",
+    "metadata"
+  ]
 }

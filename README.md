@@ -26,7 +26,7 @@ import { Edm } from '@odata/metadata'
 
 let entityType = new edm.EntityType({
    name: "Orders", 
-   property: [{ name:"OrderID", type:edm.Integer}]
+   property: [{ name:"OrderID", type: Edm.Integer }]
 })
 entityType.properties.push(new Edm.Property(...))
 ```
