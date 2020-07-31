@@ -51,9 +51,18 @@ export class ServiceMetadata {
   }
 
   requestHandler(format?: Format) {
-    return (_: Request, res: Response, __: RequestHandler) => {
-      res.set('Content-Type', 'application/xml');
-      res.send(this.document(format));
+    return (req: Request, res: Response, __: RequestHandler) => {
+      switch (req.get('Accept')) {
+        case 'application/json': case 'json':
+          res.set('Content-Type', 'application/json');
+          res.send(this.document('application/json'));
+          break;
+        default:
+          res.set('Content-Type', 'application/xml');
+          res.send(this.document('application/xml'));
+          break;
+      }
+
     };
   }
 
