@@ -10,6 +10,7 @@ describe('metadata', () => {
     expect(m.document()).not.toBeUndefined()
     expect(m.document("json")).not.toBeUndefined()
     const p = JSON.parse(m.document("json"))
+    const pm = ServiceMetadata.processMetadataJson(p)
     // expect(p).toMatchObject(schema)
 
   });

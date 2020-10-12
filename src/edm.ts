@@ -197,9 +197,6 @@ export namespace Edm {
         public propertyRefs: Array<PropertyRef>
         // @arrayMinLength(1)
 
-        toJson() {
-          return [{ propertyRef: this.propertyRefs }];
-        }
     }
 
 
@@ -213,8 +210,8 @@ export namespace Edm {
           new AttributeFunctionChain(
             (d, i) => d.key,
             (props, i) => props || [],
-            (props, i) => props.map((prop) => new Key(prop, i)),
-            (props) => props[0]
+            (props, i) => props?.map?.((prop) => new Key(prop, i)),
+            (props) => props?.[0]
           )
         )
         public key: Key;
@@ -532,16 +529,6 @@ export namespace Edm {
         @jsonProperty('annotations') @parseAs(mapArray('annotations', (prop, i) => new Edm.Annotations(prop, i)))
         public annotations: Array<Edm.Annotations>
 
-
-        toJson() {
-          if (this.entityContainer?.length == 1) {
-            const tmp = { ...this };
-            // @ts-ignore
-            tmp.entityContainer = this.entityContainer[0];
-            return tmp;
-          }
-          return this;
-        }
     }
 
 
