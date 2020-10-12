@@ -85,11 +85,18 @@ export const parseAs = parseAttribute.decorate.bind(parseAttribute);
 export const typeArgument = new MemberAttribute('typeArgument');
 
 const KEY_JSON_PROP = 'KEY_JSON_PROP';
-export const jsonProperty = function(propertyName: string) {
-  return function(target: any, targetKey: any) {
-    Reflect.defineMetadata(KEY_JSON_PROP, propertyName, target, targetKey);
+
+export interface JSONPropertyMeta {
+  propertyName: string;
+  toJson?: (instance: any) => any;
+}
+
+export const jsonProperty = function <T = any>(propertyName: string, toJson?: (instance: T) => any) {
+  return function (target: T, targetKey: any) {
+    Reflect.defineMetadata(KEY_JSON_PROP, { propertyName, toJson }, target, targetKey);
   };
 };
-export function getJsonProperty(target, targetKey): string {
+
+export function getJsonProperty(target, targetKey): JSONPropertyMeta {
   return Reflect.getMetadata(KEY_JSON_PROP, target, targetKey);
 }

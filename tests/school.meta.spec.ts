@@ -8,8 +8,8 @@ describe('School Metadata Test Suite', () => {
 
     const meta = ServiceMetadata.loadFromJson(schema)
     const classEntity = meta.getEntityTypeByName("Class")
-    // expect(classEntity).not.toBeNull()
-    // expect(meta.getEntityTypeByName("NotExist")).toBeNull()
+    expect(classEntity).not.toBeNull()
+    expect(meta.getEntityTypeByName("NotExist")).toBeNull()
     
   });
 

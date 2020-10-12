@@ -17,19 +17,32 @@ function replaceObject<T = any>(value: T): T {
     const replaceKeys = [];
     Object.keys(value).forEach((key) => {
       if (key !== undefined && key !== null) {
-        const targetProperty = getJsonProperty(value, key);
-        if (targetProperty !== undefined) {
-          if (targetProperty !== key) {
-            replaceKeys.push({ from: key, to: targetProperty });
+        const tmp = getJsonProperty(value, key);
+        if (tmp !== undefined) {
+          const { propertyName, toJson } = tmp;
+          if (propertyName !== undefined) {
+            replaceKeys.push({ from: key, to: propertyName, toJson });
           }
         }
+
       }
+
     });
     if (replaceKeys.length > 0) {
       const tmp = { ...value };
-      replaceKeys.forEach(({ from, to }) => {
-        tmp[to] = tmp[from];
-        delete tmp[from];
+      replaceKeys.forEach(({ from, to, toJson }) => {
+        if (to !== undefined) {
+          if (toJson !== undefined) {
+            tmp[to] = toJson(value);
+          } else {
+            tmp[to] = tmp[from];
+          }
+          if (from !== to) {
+            delete tmp[from];
+          }
+        }
+
+
       });
       return tmp;
     }

@@ -1,5 +1,4 @@
 import { ServiceMetadata } from "../src";
-import * as fs from "fs";
 
 describe('metadata', () => {
 
@@ -11,7 +10,7 @@ describe('metadata', () => {
     expect(m.document("json")).not.toBeUndefined()
     const p = JSON.parse(m.document("json"))
     const pm = ServiceMetadata.processMetadataJson(p)
-    // expect(p).toMatchObject(schema)
+    expect(pm.document('json')).toEqual(m.document('json'))
 
   });
 

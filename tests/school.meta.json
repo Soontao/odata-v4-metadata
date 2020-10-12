@@ -1,11 +1,11 @@
 {
   "dataServices": {
-    "schemas": [
+    "schema": [
       {
         "namespace": "Default",
         "enumTypes": [],
         "typeDefinitions": [],
-        "complexTypes": [
+        "complexType": [
           {
             "name": "Response",
             "openType": false,
@@ -26,7 +26,7 @@
             "annotations": []
           }
         ],
-        "entityTypes": [
+        "entityType": [
           {
             "name": "Class",
             "key": {
