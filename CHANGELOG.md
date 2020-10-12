@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://github.com/Soontao/odata-v4-metadata/compare/v0.1.14...v0.2.2) (2020-10-12)
+
+
+### Features
+
+* make json serialize & de-serialize consistent ([00f7930](https://github.com/Soontao/odata-v4-metadata/commit/00f7930e99776ca8dbd895d2f2ae9996f0ed6c32))
+
 ### [0.1.14](https://github.com/Soontao/odata-v4-metadata/compare/v0.1.13...v0.1.14) (2020-08-01)
 
 ### [0.1.13](https://github.com/Soontao/odata-v4-metadata/compare/v0.1.12...v0.1.13) (2020-07-31)
