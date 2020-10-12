@@ -1,4 +1,6 @@
 import * as metacode from './metacode';
+// eslint-disable-next-line no-duplicate-imports
+import { jsonProperty } from './metacode';
 
 export namespace Edm {
     export class PrimitiveType {
@@ -56,7 +58,7 @@ export namespace Edm {
     const primitiveAnnotationValue = (sourceField) => new metacode.AttributeFunctionChain(
       (d, i) => {
         if (d['collection'] && d['collection'][0] && Array.isArray(d['collection'][0][sourceField]) && !d[sourceField]) {
-          return  d['collection'][0][sourceField].map((x) => x.text);
+          return d['collection'][0][sourceField].map((x) => x.text);
         }
         const props = d[sourceField];
         if (Array.isArray(props)) {
@@ -79,7 +81,7 @@ export namespace Edm {
 
     export class EdmItemBase {
 
-      constructor(definition?: any, public parent?:EdmItemBase) {
+      constructor(definition?: any, public parent?: EdmItemBase) {
         definition && this.loadFrom(definition);
       }
 
@@ -134,7 +136,7 @@ export namespace Edm {
         @parse
         public concurrencyMode: String
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
 
@@ -158,13 +160,13 @@ export namespace Edm {
         @parse
         public containsTarget: boolean
 
-        @parseAs(mapArray('referentialConstraint', (prop, i) => new ReferentialConstraint(prop, i)))
+        @jsonProperty('referentialConstraint') @parseAs(mapArray('referentialConstraint', (prop, i) => new ReferentialConstraint(prop, i)))
         public referentialConstraints: Array<ReferentialConstraint>
 
         //TODO onDelete
 
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
 
@@ -191,9 +193,13 @@ export namespace Edm {
 
     export class Key extends EdmItemBase {
 
-        @parseAs(mapArray('propertyRef', (prop, i) => new PropertyRef(prop, i)))
+        @jsonProperty('propertyRef') @parseAs(mapArray('propertyRef', (prop, i) => new PropertyRef(prop, i)))
         public propertyRefs: Array<PropertyRef>
-        //@arrayMinLength(1)
+        // @arrayMinLength(1)
+
+        toJson() {
+          return [{ propertyRef: this.propertyRefs }];
+        }
     }
 
 
@@ -203,12 +209,14 @@ export namespace Edm {
         @required
         public name: string;
 
-
-        @parseAs(new AttributeFunctionChain(
-          (d, i) => d.key,
-          (props, i) => props || [],
-          (props, i) => props.map((prop) => new Key(prop, i)),
-          (props) => props[0]))
+        @parseAs(
+          new AttributeFunctionChain(
+            (d, i) => d.key,
+            (props, i) => props || [],
+            (props, i) => props.map((prop) => new Key(prop, i)),
+            (props) => props[0]
+          )
+        )
         public key: Key;
 
         @parse
@@ -224,13 +232,13 @@ export namespace Edm {
         public hasStream: boolean;
 
 
-        @parseAs(mapArray('property', (prop, i) => new Property(prop, i)))
+        @jsonProperty('property') @parseAs(mapArray('property', (prop, i) => new Property(prop, i)))
         public properties: Array<Property>;
 
-        @parseAs(mapArray('navigationProperty', (prop, i) => new NavigationProperty(prop, i)))
+        @jsonProperty('navigationProperty') @parseAs(mapArray('navigationProperty', (prop, i) => new NavigationProperty(prop, i)))
         public navigationProperties: Array<NavigationProperty>;
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
 
@@ -252,13 +260,13 @@ export namespace Edm {
         @parse
         public hasStream: boolean;
 
-        @parseAs(mapArray('property', (prop, i) => new Property(prop, i)))
+        @jsonProperty('property') @parseAs(mapArray('property', (prop, i) => new Property(prop, i)))
         public properties: Array<Property>;
 
-        @parseAs(mapArray('navigationProperty', (prop, i) => new NavigationProperty(prop, i)))
+        @jsonProperty('navigationProperty') @parseAs(mapArray('navigationProperty', (prop, i) => new NavigationProperty(prop, i)))
         public navigationProperties: Array<NavigationProperty>;
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
     export class Parameter extends EdmItemBase {
@@ -292,7 +300,7 @@ export namespace Edm {
         @defaultValue(0)
         public SRID: number;
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
 
       // according to specs there is no default value for params. but is that right?
@@ -307,7 +315,7 @@ export namespace Edm {
         @defaultValue(true)
         public nullable: boolean
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
 
@@ -324,7 +332,7 @@ export namespace Edm {
         @parse
         public entitySetPath: string
 
-        @parseAs(mapArray('parameter', (prop, i) => new Parameter(prop, i)))
+        @jsonProperty('parameter') @parseAs(mapArray('parameter', (prop, i) => new Parameter(prop, i)))
         public parameters: Array<Parameter>
 
         @parseAs(new AttributeFunctionChain(
@@ -333,7 +341,7 @@ export namespace Edm {
 
         public returnType: ReturnType
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
 
@@ -349,7 +357,7 @@ export namespace Edm {
         @parse
         public entitySetPath: string
 
-        @parseAs(mapArray('parameter', (prop, i) => new Parameter(prop, i)))
+        @jsonProperty('parameter') @parseAs(mapArray('parameter', (prop, i) => new Parameter(prop, i)))
         public parameters: Array<Parameter>
 
         @parseAs(new AttributeFunctionChain(
@@ -360,7 +368,7 @@ export namespace Edm {
         @parse
         public isComposable: boolean
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
     export class Member extends EdmItemBase {
@@ -371,7 +379,7 @@ export namespace Edm {
         @parse
         public value: number
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
 
@@ -392,10 +400,10 @@ export namespace Edm {
         @parse
         public isFlags: boolean
 
-        @parseAs(mapArray('member', (prop, i) => new Member(prop, i)))
+        @jsonProperty('member') @parseAs(mapArray('member', (prop, i) => new Member(prop, i)))
         public members: Array<Member>
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
 
@@ -408,7 +416,7 @@ export namespace Edm {
         @required
         public entityType: string
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
 
@@ -421,7 +429,7 @@ export namespace Edm {
         @required
         public action: string
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
 
@@ -438,7 +446,7 @@ export namespace Edm {
         @defaultValue(false)
         public includeInServiceDocument: boolean
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
 
@@ -446,13 +454,13 @@ export namespace Edm {
         @parse
         public name: string
 
-        @parseAs(mapArray('entitySet', (prop, i) => new EntitySet(prop, i)))
+        @jsonProperty('entitySet') @parseAs(mapArray('entitySet', (prop, i) => new EntitySet(prop, i)))
         public entitySets: Array<EntitySet>
 
-        @parseAs(mapArray('actionImport', (prop, i) => new ActionImport(prop, i)))
+        @jsonProperty('actionImport') @parseAs(mapArray('actionImport', (prop, i) => new ActionImport(prop, i)))
         public actionImports: Array<ActionImport>
 
-        @parseAs(mapArray('functionImport', (prop, i) => new FunctionImport(prop, i)))
+        @jsonProperty('functionImport') @parseAs(mapArray('functionImport', (prop, i) => new FunctionImport(prop, i)))
         public functionImports: Array<FunctionImport>
     }
 
@@ -480,7 +488,7 @@ export namespace Edm {
         @defaultValue(0)
         public SRID: number;
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
 
@@ -493,35 +501,52 @@ export namespace Edm {
         //@noneOf(["Edm", "odata", "System", "Transient")
         public alias: string
 
+        @jsonProperty('enumType')
         @parseAs(mapArray('enumType', (prop, i) => new EnumType(prop, i)))
         public enumTypes: Array<EnumType>
 
+        @jsonProperty('typeDefinition')
         @parseAs(mapArray('typeDefinition', (prop, i) => new TypeDefinition(prop, i)))
         public typeDefinitions: Array<TypeDefinition>
 
+        @jsonProperty('complexType')
         @parseAs(mapArray('complexType', (prop, i) => new ComplexType(prop, i)))
         public complexTypes: Array<ComplexType>
 
-
+        @jsonProperty('entityType')
         @parseAs(mapArray('entityType', (prop, i) => new EntityType(prop, i)))
         public entityTypes: Array<EntityType>
 
+        @jsonProperty('action')
         @parseAs(mapArray('action', (prop, i) => new Action(prop, i)))
         public actions: Array<Action>
 
+        @jsonProperty('function')
         @parseAs(mapArray('function', (prop, i) => new Edm.Function(prop, i)))
         public functions: Array<Edm.Function>
 
+        @jsonProperty('entityContainer')
         @parseAs(mapArray('entityContainer', (prop, i) => new Edm.EntityContainer(prop, i)))
         public entityContainer: Array<Edm.EntityContainer>
 
-        @parseAs(mapArray('annotations', (prop, i) => new Edm.Annotations(prop, i)))
+        @jsonProperty('annotations') @parseAs(mapArray('annotations', (prop, i) => new Edm.Annotations(prop, i)))
         public annotations: Array<Edm.Annotations>
+
+
+        toJson() {
+          if (this.entityContainer?.length == 1) {
+            const tmp = { ...this };
+            // @ts-ignore
+            tmp.entityContainer = this.entityContainer[0];
+            return tmp;
+          }
+          return this;
+        }
     }
 
 
     export class DataServices extends EdmItemBase {
-        @parseAs(mapArray('schema', (prop, i) => new Schema(prop, i)))
+        @jsonProperty('schema') @parseAs(mapArray('schema', (prop, i) => new Schema(prop, i)))
         public schemas: Array<Schema>
     }
 
@@ -529,7 +554,7 @@ export namespace Edm {
         @parse
         public uri: string
 
-        @parseAs(mapArray('include', (prop, i) => new ReferenceInclude(prop, i)))
+        @jsonProperty('include') @parseAs(mapArray('include', (prop, i) => new ReferenceInclude(prop, i)))
         public includes: Array<ReferenceInclude>
     }
 
@@ -549,7 +574,7 @@ export namespace Edm {
         ))
         public dataServices: DataServices
 
-        @parseAs(mapArray('reference', (prop, i) => new Reference(prop, i)))
+        @jsonProperty('reference') @parseAs(mapArray('reference', (prop, i) => new Reference(prop, i)))
         public references: Array<Edm.Reference>
     }
 
@@ -561,7 +586,7 @@ export namespace Edm {
         @parse
         public qualifier: string
 
-        @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
+        @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
 

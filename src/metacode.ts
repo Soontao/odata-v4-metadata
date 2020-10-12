@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { isUndefined } from '@newdash/newdash/isUndefined';
 
 const definitionPropName = 'definition';
@@ -15,12 +16,12 @@ export class MemberAttribute {
     def.members = md;
   }
 
-  getDecoratorValue(target:Object, key:string, presentedValue?: any) {
+  getDecoratorValue(target: Object, key: string, presentedValue?: any) {
     return presentedValue;
   }
 
-  decorate(value?:any):Function {
-    return (target:Object, key: string, descriptor?: Object) => {
+  decorate(value?: any): Function {
+    return (target: Object, key: string, descriptor?: Object) => {
       this.registerMember(target, key);
       const decoratorValue = this.getDecoratorValue(target, key, value);
 
@@ -44,18 +45,18 @@ export class MemberAttribute {
 }
 
 export class AttributeFunctionChain {
-    private steps: Array<Function> = []
-    constructor(...steps: Array<Function>) {
-      this.steps = steps;
-    }
+  private steps: Array<Function> = []
+  constructor(...steps: Array<Function>) {
+    this.steps = steps;
+  }
 
-    invoke(definition, instance) {
-      let result = definition;
-      this.steps.forEach((fn) => {
-        result = fn(result, instance);
-      });
-      return result;
-    }
+  invoke(definition, instance) {
+    let result = definition;
+    this.steps.forEach((fn) => {
+      result = fn(result, instance);
+    });
+    return result;
+  }
 }
 
 export class ParseAttribute extends MemberAttribute {
@@ -63,7 +64,7 @@ export class ParseAttribute extends MemberAttribute {
     super('serialize');
   }
 
-  getDecoratorValue(target:Object, key:string, presentedValue?: any) {
+  getDecoratorValue(target: Object, key: string, presentedValue?: any) {
     if (!isUndefined(presentedValue)) {
       return presentedValue;
     }
@@ -83,3 +84,12 @@ export const parse = parseAttribute.decorator;
 export const parseAs = parseAttribute.decorate.bind(parseAttribute);
 export const typeArgument = new MemberAttribute('typeArgument');
 
+const KEY_JSON_PROP = 'KEY_JSON_PROP';
+export const jsonProperty = function(propertyName: string) {
+  return function(target: any, targetKey: any) {
+    Reflect.defineMetadata(KEY_JSON_PROP, propertyName, target, targetKey);
+  };
+};
+export function getJsonProperty(target, targetKey): string {
+  return Reflect.getMetadata(KEY_JSON_PROP, target, targetKey);
+}

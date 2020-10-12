@@ -22,7 +22,6 @@ describe("Edm.EntityProperty", () => {
 
 describe("Edm.NavigationProperty", () => {
 
-
     it("should support initialize name from init data", () => {
         var p = {
             name: "h",
@@ -82,10 +81,9 @@ describe("Edm.EntityType", () => {
 
 
 
-
-
 var nwindSchema = require('./schema.json')
 var entitySchema = nwindSchema.dataServices.schema[0]
+
 describe("Edm.Schema", () => {
     it("should support initialize name from init data", () => {
         var s = new Edm.Schema(entitySchema)

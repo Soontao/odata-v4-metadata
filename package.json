@@ -35,7 +35,9 @@
     "url": "https://github.com/Soontao/odata-v4-metadata"
   },
   "dependencies": {
-    "@newdash/newdash": "^5.15.0"
+    "@newdash/newdash": "^5.15.0",
+    "reflect-metadata": "^0.1.13",
+    "typescript-json-serializer": "^2.4.0"
   },
   "keywords": [
     "odata",

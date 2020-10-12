@@ -9,6 +9,9 @@ describe('metadata', () => {
     const m = ServiceMetadata.processMetadataJson(schema)
     expect(m.document()).not.toBeUndefined()
     expect(m.document("json")).not.toBeUndefined()
+    const p = JSON.parse(m.document("json"))
+    // expect(p).toMatchObject(schema)
+
   });
 
   it('defineEntities', () => {
