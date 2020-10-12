@@ -1,3 +1,4 @@
+import { LRUMap } from '@newdash/newdash/functional/LRUMap';
 import * as metacode from './metacode';
 // eslint-disable-next-line no-duplicate-imports
 import { jsonProperty } from './metacode';
@@ -84,6 +85,32 @@ export namespace Edm {
     constructor(definition?: any, public parent?: EdmItemBase) {
       definition && this.loadFrom(definition);
     }
+
+    private _cache: LRUMap;
+
+    protected _tryGetCache<T>(key: string, producer: () => T): T {
+      // lazy create cache
+      if (this._cache === undefined) {
+        this._cache = new LRUMap();
+      }
+      if (!this._cache.has(key)) {
+        this._cache.set(key, producer());
+      }
+      return this._cache.get(key);
+    }
+
+    public getAnnotationsByTerm(term: string) {
+      return this._tryGetCache(`_type_${term}_`, () => {
+        const rt = [];
+        this['annotations']?.map?.((annotation: Annotation) => {
+          if (annotation.term === term) {
+            rt.push(rt);
+          }
+        });
+        return rt;
+      });
+    }
+
 
     loadFrom(definition) {
 
@@ -238,6 +265,20 @@ export namespace Edm {
 
     @jsonProperty('annotation') @parseAs(mapArray('annotation', (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
     public annotations: Array<Edm.Annotation>
+
+
+    public getPropertyByName(propertyName: string): Property {
+      return this._tryGetCache(`_prop_${propertyName}_`, () => {
+        for (const property of this.properties) {
+          if (property.name === propertyName) {
+            return property;
+          }
+          return null;
+        }
+      });
+    }
+
+
   }
 
   export class ComplexType extends EdmItemBase {

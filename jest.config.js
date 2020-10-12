@@ -3,7 +3,7 @@ module.exports = {
     '.(js|ts|tsx)': 'ts-jest'
   },
   'testMatch': [
-    '**/?(*.)+(spec|test).[jt]s?(x)'
+    '**/tests/**/?(*.)+(spec|test).[jt]s?(x)'
   ],
   'testTimeout': 30 * 1000,
   'collectCoverageFrom': [
