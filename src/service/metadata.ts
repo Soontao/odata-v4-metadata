@@ -3,7 +3,6 @@ import { XmlMetadata } from './xmlMetadata';
 import { defineEntities } from './defineEntities';
 import { Request, Response, RequestHandler } from 'express';
 import { LRUMap } from '@newdash/newdash/functional/LRUMap';
-import { serialize } from 'typescript-json-serializer';
 import { jsonStringify } from './JsonCreator';
 
 export type Format = 'xml' | 'json' | 'application/json' | 'application/xml'

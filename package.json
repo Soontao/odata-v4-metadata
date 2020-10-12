@@ -1,6 +1,6 @@
 {
   "name": "@odata/metadata",
-  "version": "0.1.14",
+  "version": "0.2.1",
   "description": "OData(V4) Metadata Utilities",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -36,8 +36,7 @@
   },
   "dependencies": {
     "@newdash/newdash": "^5.15.0",
-    "reflect-metadata": "^0.1.13",
-    "typescript-json-serializer": "^2.4.0"
+    "reflect-metadata": "^0.1.13"
   },
   "keywords": [
     "odata",
