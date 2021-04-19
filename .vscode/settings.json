@@ -4,6 +4,9 @@
   },
   "editor.formatOnSave": false,
   "cSpell.words": [
+    "CSDL",
+    "EMDX",
+    "Edmx",
     "Serializable"
   ]
 }
