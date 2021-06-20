@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.5](https://github.com/Soontao/odata-v4-metadata/compare/v0.2.4...v0.2.5) (2021-06-20)
+
+
+### Bug Fixes
+
+* dep issue ([c81e3c1](https://github.com/Soontao/odata-v4-metadata/commit/c81e3c1d413c26b39dee829b2ea62694e55d343e))
+
 ### [0.2.4](https://github.com/Soontao/odata-v4-metadata/compare/v0.2.3...v0.2.4) (2021-06-20)
 
 
