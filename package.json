@@ -1,6 +1,6 @@
 {
   "name": "@odata/metadata",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "OData(V4) Metadata Utilities",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
