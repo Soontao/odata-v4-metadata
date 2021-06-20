@@ -4,9 +4,26 @@ import * as metacode from './metacode';
 import { jsonProperty } from './metacode';
 
 export namespace Edm {
+
   export class PrimitiveType {
     constructor(public className: string) { }
     toString() { return this.className; }
+    newValue(value: any) {
+      return new PrimitiveTypeValue(value, this)
+    }
+  }
+
+  export class PrimitiveTypeValue {
+
+    private type: PrimitiveType;
+
+    private value: any;
+
+    constructor(value: any, type: PrimitiveType) {
+      this.value = value
+      this.type = type
+    }
+
   }
 
 
