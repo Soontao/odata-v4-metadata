@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.4](https://github.com/Soontao/odata-v4-metadata/compare/v0.2.3...v0.2.4) (2021-06-20)
+
+
+### Bug Fixes
+
+* main branch ([b500690](https://github.com/Soontao/odata-v4-metadata/commit/b5006906b05e08154ed458eeda4572bce1964671))
+
 ### [0.2.3](https://github.com/Soontao/odata-v4-metadata/compare/v0.2.2...v0.2.3) (2021-06-20)
 
 ### [0.2.2](https://github.com/Soontao/odata-v4-metadata/compare/v0.1.14...v0.2.2) (2020-10-12)
