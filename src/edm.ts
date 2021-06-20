@@ -1,18 +1,35 @@
 import { LRUMap } from '@newdash/newdash/functional/LRUMap';
 import * as metacode from './metacode';
-// eslint-disable-next-line no-duplicate-imports
-import { jsonProperty } from './metacode';
 
+const { jsonProperty } = metacode
+
+/**
+ * Entity Data Model 
+ */
 export namespace Edm {
 
   export class PrimitiveType {
+
     constructor(public className: string) { }
+    /**
+     * @returns edm type code
+     */
     toString() { return this.className; }
-    newValue(value: any) {
+    /**
+     * create value based current type
+     * 
+     * @param value 
+     * @returns 
+     */
+    createValue(value: any) {
       return new PrimitiveTypeValue(value, this)
     }
+
   }
 
+  /**
+   * primitive literal with value
+   */
   export class PrimitiveTypeValue {
 
     private type: PrimitiveType;
@@ -22,6 +39,19 @@ export namespace Edm {
     constructor(value: any, type: PrimitiveType) {
       this.value = value
       this.type = type
+    }
+
+    /**
+     * get the primitive literal type
+     * 
+     * @returns 
+     */
+    public getType() {
+      return this.type
+    }
+
+    public getValue() {
+      return this.value
     }
 
   }
