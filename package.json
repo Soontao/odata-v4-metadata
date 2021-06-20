@@ -9,7 +9,6 @@
     "node": ">=10"
   },
   "devDependencies": {
-    "@types/express": "^4.17.12",
     "@types/jest": "^26.0.23",
     "@types/node": "^14.14.41",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
@@ -35,6 +34,7 @@
     "url": "https://github.com/Soontao/odata-v4-metadata"
   },
   "dependencies": {
+    "@types/express": "^4.17.12",
     "@newdash/newdash": "^5.19.0",
     "reflect-metadata": "^0.1.13"
   },
