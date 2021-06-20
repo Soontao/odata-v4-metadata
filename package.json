@@ -28,7 +28,7 @@
     "test": "jest",
     "coverage": "npm test -- --coverage --no-cache",
     "prepublishOnly": "npm run build",
-    "release": "standard-version --no-verify && git push --follow-tags origin master"
+    "release": "standard-version --no-verify && git push --follow-tags origin main"
   },
   "repository": {
     "type": "git",
