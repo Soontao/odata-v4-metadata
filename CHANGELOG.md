@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.6](https://github.com/Soontao/odata-v4-metadata/compare/v0.2.5...v0.2.6) (2021-07-07)
+
+
+### Features
+
+* support edm.datetime for v2 ([63bacea](https://github.com/Soontao/odata-v4-metadata/commit/63bacea7bcedf6b336cf9a06e7340f0882b787a3))
+
 ### [0.2.5](https://github.com/Soontao/odata-v4-metadata/compare/v0.2.4...v0.2.5) (2021-06-20)
 
 
