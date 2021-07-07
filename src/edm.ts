@@ -1,10 +1,10 @@
 import { LRUMap } from '@newdash/newdash/functional/LRUMap';
 import * as metacode from './metacode';
 
-const { jsonProperty } = metacode
+const { jsonProperty } = metacode;
 
 /**
- * Entity Data Model 
+ * Entity Data Model
  */
 export namespace Edm {
 
@@ -17,12 +17,12 @@ export namespace Edm {
     toString() { return this.className; }
     /**
      * create value based current type
-     * 
-     * @param value 
-     * @returns 
+     *
+     * @param value
+     * @returns
      */
     createValue(value: any) {
-      return new PrimitiveTypeValue(value, this)
+      return new PrimitiveTypeValue(value, this);
     }
 
   }
@@ -37,21 +37,21 @@ export namespace Edm {
     private value: any;
 
     constructor(value: any, type: PrimitiveType) {
-      this.value = value
-      this.type = type
+      this.value = value;
+      this.type = type;
     }
 
     /**
      * get the primitive literal type
-     * 
-     * @returns 
+     *
+     * @returns
      */
     public getType() {
-      return this.type
+      return this.type;
     }
 
     public getValue() {
-      return this.value
+      return this.value;
     }
 
   }
@@ -61,6 +61,10 @@ export namespace Edm {
   export const Boolean = new PrimitiveType('Edm.Boolean');
   export const Byte = new PrimitiveType('Edm.Byte');
   export const Date = new PrimitiveType('Edm.Date');
+  /**
+   * @since odata v2
+   */
+  export const DateTime = new PrimitiveType('Edm.DateTime');
   export const DateTimeOffset = new PrimitiveType('Edm.DateTimeOffset');
   export const Decimal = new PrimitiveType('Edm.Decimal');
   export const Double = new PrimitiveType('Edm.Double');
